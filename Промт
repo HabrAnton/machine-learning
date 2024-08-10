@@ -1,0 +1,20 @@
+### Текущее Состояние
+
+Мы находимся на этапе анализа и кластеризации данных с использованием Python и библиотек pandas, matplotlib, seaborn и scikit-learn. Мы уже создали и предобработали набор данных, состоящий из ответов пользователей на вопросы. Провели анализ распределения ответов, вычислили корреляционную матрицу и приступили к кластеризации данных.
+
+### Используемые Инструменты
+
+1. Python: Основной язык программирования для анализа данных.
+2. pandas: Для работы с данными в формате таблиц.
+3. matplotlib: Для визуализации данных.
+4. seaborn: Для улучшенной визуализации данных.
+5. scikit-learn: Для применения методов машинного обучения, таких как кластеризация.
+
+### Текущий Код
+type id_ed25519.pub
+
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDQOkPMK/RiuzUEvWZrVQSvoYl7iQZExk2c3vT/nejM6 TPEPG@WIN-JLEG4ANK9BR
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDQOkPMK/RiuzUEvWZrVQSvoYl7iQZExk2c3vT/nejM6 TPEPG@WIN-JLEG4ANK9BR
+
+C:\Users\TPEPG>ssh root@87.228.19.210
+ssh Mike@87.228.19.210
