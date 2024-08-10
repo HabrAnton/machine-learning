@@ -3,28 +3,62 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
 import datetime
+import re
 
-# Исходные данные
-data = [
-    {"User ID": 201382457, "Username": "mell1433", "Q1": 4, "Q2": 2, "Q3": 3, "Q4": 2, "Q5": 4, "Q6": 3, "Q7": 4, "Q8": 1, "Q9": 2, "Q10": 4},
-    {"User ID": 5929292461, "Username": "OStasya", "Q1": 3, "Q2": 2, "Q3": 3, "Q4": 4, "Q5": 4, "Q6": 2, "Q7": 2, "Q8": 4, "Q9": 4, "Q10": 4, "end_time": datetime.datetime(2024, 8, 6, 15, 7, 46, 85618)},
-    {"User ID": 806241975, "Username": "Marie_Paramonova", "Q1": 4, "Q2": 1, "Q3": 4, "Q4": 4, "Q5": 4, "Q6": 2, "Q7": 4, "Q8": 4, "Q9": 1, "Q10": 1, "end_time": datetime.datetime(2024, 8, 6, 15, 7, 46, 92619)},
-    # (добавьте все остальные записи сюда)
-]
+# Функция для парсинга данных из строки
+def parse_line(line):
+    pattern = r"User ID (\d+) Username (\S+) Q1 (\d+) Q2 (\d+) Q3 (\d+) Q4 (\d+) Q5 (\d+) Q6 (\d+) Q7 (\d+) Q8 (\d+) Q9 (\d+) Q10 (\d+)"
+    match = re.search(pattern, line)
+    if match:
+        return {
+            'User ID': int(match.group(1)),
+            'Username': match.group(2),  # Убрана лишняя закрывающая скобка
+            'Q1': int(match.group(3)),
+            'Q2': int(match.group(4)),
+            'Q3': int(match.group(5)),
+            'Q4': int(match.group(6)),
+            'Q5': int(match.group(7)),
+            'Q6': int(match.group(8)),
+            'Q7': int(match.group(9)),
+            'Q8': int(match.group(10)),
+            'Q9': int(match.group(11)),
+            'Q10': int(match.group(12)),
+        }
+    else:
+        print(f"Не удалось распарсить строку: {line}")
+        return None
+
+# Чтение файла построчно
+data = []
+with open('utf-8logs.txt', 'r', encoding='utf-8') as file:
+    for line in file:
+        parsed_line = parse_line(line)
+        if parsed_line is not None:
+            data.append(parsed_line)
 
 # Создание DataFrame
 df = pd.DataFrame(data)
 
-# Удаление дубликатов
-df.drop_duplicates(inplace=True)
+# Проверка содержания DataFrame
+print("Существующие столбцы в DataFrame:")
+print(df.columns)
 
-# Проверка и заполнение пропущенных значений
-df.fillna(value={"Username": "Unknown"}, inplace=True)
+print("Первые строки DataFrame:")
+print(df.head())
 
-# Преобразование типов данных
+# Проверка количества распарсенных строк
+print(f"Количество успешно распарсенных строк: {len(df)}")
+
+# Преобразование типов данных столбцов, если они существуют
 for col in ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10']:
-    df[col] = df[col].astype(int)
+    if col in df.columns:
+        df[col] = df[col].astype(int)
+    else:
+        print(f"Столбец {col} отсутствует в DataFrame")
 
+
+
+# Дополнительный код для дальнейшей обработки DataFrame (если требуется)
 # Выводим DataFrame для проверки
 print("Начальные данные:")
 print(df.head())
