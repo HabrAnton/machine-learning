@@ -7,12 +7,12 @@ import re
 
 # Функция для парсинга данных из строки
 def parse_line(line):
-    pattern = r"User ID (\d+) Username (\S+) Q1 (\d+) Q2 (\d+) Q3 (\d+) Q4 (\d+) Q5 (\d+) Q6 (\d+) Q7 (\d+) Q8 (\d+) Q9 (\d+) Q10 (\d+)"
+    pattern = r"User ID- (\d+), Username- (\S+), Q1- (\d+), Q2- (\d+), Q3- (\d+), Q4- (\d+), Q5- (\d+), Q6- (\d+), Q7- (\d+), Q8- (\d+), Q9- (\d+), Q10- (\d+)"
     match = re.search(pattern, line)
     if match:
         return {
             'User ID': int(match.group(1)),
-            'Username': match.group(2),  # Убрана лишняя закрывающая скобка
+            'Username': match.group(2),
             'Q1': int(match.group(3)),
             'Q2': int(match.group(4)),
             'Q3': int(match.group(5)),
@@ -55,6 +55,11 @@ for col in ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9', 'Q10']:
         df[col] = df[col].astype(int)
     else:
         print(f"Столбец {col} отсутствует в DataFrame")
+
+
+
+
+
 
 
 
